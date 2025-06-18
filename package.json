@@ -1,0 +1,29 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/app.ts",
+    "build": "tsc --build tsconfig.json",
+    "dev": "ts-node-dev --respawn  ./src/app.ts",
+    "seed": "ts-node src/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "pg": "^8.16.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.24"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
