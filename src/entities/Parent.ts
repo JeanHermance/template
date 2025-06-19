@@ -1,8 +1,10 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { RefreshToken } from "./refreshToken";
+import { Enfant } from "./enfant";
+import { Notification } from "./notification";
 
 @Entity()
-export class User {
+export class Parent {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -26,7 +28,14 @@ export class User {
     @UpdateDateColumn({type: "timestamp" , default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP"})
     updatedAt: Date;
 
-    @OneToMany(() => RefreshToken, (refreshtoken) => refreshtoken.user)
+    @OneToMany(() => RefreshToken, (refreshtoken) => refreshtoken.parent)
     refreshtokens: RefreshToken[];
+
+    @OneToMany(() => Enfant , (enfant) => enfant.user)
+    enfants: Enfant;
+
+    @OneToMany(() => Notification , (notification) => notification.user)
+    notifications: Notification[];
+
 }
 

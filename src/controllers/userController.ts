@@ -1,21 +1,19 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/userServices";
+import { ParentService } from "../services/userServices";
 import { UserDto } from "../dto/userDto";
 import { validate } from "class-validator";
 import { AuthentificateRequest } from "../middlewares/authMiddleware";
 
-const userService = new UserService();
+const userService = new ParentService();
 
 export const registerUser = async (req: Request, res: Response) => {
     try {
-        console.log(req.body);
         const userDto = Object.assign(new UserDto(), req.body);
 
         const error = await validate(userDto);
         if (error.length > 0) {
              res.status(400).json(error);
         }else{
-            console.log(userDto);
             const user = await userService.register(userDto)
             res.status(201).json(user);
         }
