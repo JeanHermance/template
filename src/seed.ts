@@ -3,16 +3,18 @@ import { AppDataSource } from "./config/database";  // adapte le chemin
 import { Parent } from "./entities/Parent";
 import { Niveau } from "./entities/Niveau";
 import { Theme } from "./entities/Theme";
+import bcrypt from "bcryptjs";
 
 const seedUsers = async () => {
   const userRepo = AppDataSource.getRepository(Parent);
+
 
   const userExist = await userRepo.findOneBy({ email: "admin@example.com" });
   if (!userExist) {
     const user = userRepo.create({
       username: "admin",
       email: "admin@example.com",
-      password: "password",
+      password: await bcrypt.hash("password", 10),
       isActive: true,
     });
     await userRepo.save(user);
@@ -24,6 +26,7 @@ const seedUsers = async () => {
 
 const seedNiveaux = async () => {
   const niveauRepo = AppDataSource.getRepository(Niveau);
+
 
   const niveaux = [
     { nom_niveau: "Débutant", description: "Introduction à la technologie" },
@@ -47,6 +50,7 @@ const seedThemes = async () => {
   const themeRepo = AppDataSource.getRepository(Theme);
   const userRepo = AppDataSource.getRepository(Parent);
   const niveauRepo = AppDataSource.getRepository(Niveau);
+
 
   const user = await userRepo.findOneBy({ email: "admin@example.com" });
   const niveau = await niveauRepo.findOneBy({ nom_niveau: "Débutant" });
