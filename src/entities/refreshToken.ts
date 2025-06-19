@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Parent } from "./Parent";
+import { User } from "./user";
 
 @Entity()
 export class RefreshToken{
@@ -15,8 +15,8 @@ export class RefreshToken{
     @Column({type: 'date'})
     expires_in: Date;
 
-    @ManyToOne(() => Parent ,(parent) => parent.refreshtokens, {onDelete: 'CASCADE'})
+    @ManyToOne(() => User ,(user) => user.refreshtokens, {onDelete: 'CASCADE'})
     @JoinColumn({name: 'user_id'})
-    parent: Parent;
+    user: User;
 
 }

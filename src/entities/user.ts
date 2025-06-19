@@ -4,7 +4,7 @@ import { Enfant } from "./enfant";
 import { Notification } from "./notification";
 
 @Entity()
-export class Parent {
+export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -28,7 +28,7 @@ export class Parent {
     @UpdateDateColumn({type: "timestamp" , default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP"})
     updatedAt: Date;
 
-    @OneToMany(() => RefreshToken, (refreshtoken) => refreshtoken.parent)
+    @OneToMany(() => RefreshToken, (refreshtoken) => refreshtoken.user)
     refreshtokens: RefreshToken[];
 
     @OneToMany(() => Enfant , (enfant) => enfant.user)

@@ -3,13 +3,13 @@ import { EnfantDto } from "../dto/enfantDto";
 import { Enfant } from "../entities/enfant";
 import { Niveau } from "../entities/Niveau";
 import { Notification } from "../entities/notification";
-import { Parent } from "../entities/Parent";
+import { User } from "../entities/user";
 import { sendPinParent } from "../utils/mailer";
 
 
 export class EnfantService {
     private enfantRepository = AppDataSource.getRepository(Enfant);
-    private userRepository = AppDataSource.getRepository(Parent);
+    private userRepository = AppDataSource.getRepository(User);
     private niveauRepository = AppDataSource.getRepository(Niveau);
     private notificationRepository = AppDataSource.getRepository(Notification);
 

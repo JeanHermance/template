@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Parent } from "./Parent";
+import { User } from "./user";
 
 @Entity()
 export class Notification{
@@ -20,7 +20,7 @@ export class Notification{
     @CreateDateColumn({type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     created_at: Date;
 
-    @ManyToOne(() => Parent , (parent) => parent.notifications)
+    @ManyToOne(() => User , (user) => user.notifications)
     @JoinColumn({name: "user_id"})
-    user: Parent;
+    user: User;
 }
