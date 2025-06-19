@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/userServices";
+import { ParentService } from "../services/userServices";
 import { UserDto } from "../dto/userDto";
 import { validate } from "class-validator";
 import { AuthentificateRequest } from "../middlewares/authMiddleware";
 
-const userService = new UserService();
+const userService = new ParentService();
 
 export const registerUser = async (req: Request, res: Response) => {
     try {

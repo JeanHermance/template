@@ -1,14 +1,14 @@
 import { AppDataSource } from "../config/database";
 import { UserDto } from "../dto/userDto";
-import { User } from "../entities/Parent";
+import { Parent } from "../entities/Parent";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { generateAccessToken, generateRefreshToken } from "../utils/token";
 import { RefreshToken } from "../entities/refreshToken";
 
 
-export class UserService{
-    private userRepository = AppDataSource.getRepository(User);
+export class ParentService{
+    private userRepository = AppDataSource.getRepository(Parent);
     private refreshTokenRepository = AppDataSource.getRepository(RefreshToken);
 
 
@@ -60,7 +60,7 @@ export class UserService{
         const refreshToken = this.refreshTokenRepository.create({
             token: refreshTokenValue,
             expires_in: expires,
-            user,
+            parent: user,
         });
         await this.refreshTokenRepository.save(refreshToken);
 
@@ -86,7 +86,7 @@ export class UserService{
                 const refreshToken = this.refreshTokenRepository.create({
                     token: newRefreshToken,
                     expires_in: new Date(),
-                    user: tokenRecord.user,
+                    parent: tokenRecord.parent,
                 });
                 await this.refreshTokenRepository.save(refreshToken);
 
@@ -102,7 +102,7 @@ export class UserService{
     }
 
     async logout(userId: number){
-        await this.refreshTokenRepository.delete({user: {id: userId}});
+        await this.refreshTokenRepository.delete({parent: {id: userId}});
         return true;
     }
 
