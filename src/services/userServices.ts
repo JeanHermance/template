@@ -1,6 +1,6 @@
 import { AppDataSource } from "../config/database";
 import { UserDto } from "../dto/userDto";
-import { User } from "../entities/user";
+import { User } from "../entities/Parent";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { generateAccessToken, generateRefreshToken } from "../utils/token";
