@@ -1,8 +1,6 @@
 import { Router } from "express";
 import { getAllUser, getProfile, getUserById, loginUser, logoutUser, refreshToken, registerUser, updateUser } from "../controllers/userController";
 import { authentificateToken } from "../middlewares/authMiddleware";
-import { authorizeRole } from "../middlewares/roleMiddleware";
-import { RoleEnum } from "../enums/roleEnum";
 
 const router = Router();
 
@@ -17,9 +15,9 @@ router.post('/logout',authentificateToken,logoutUser);
 // show profile user
 router.get('/profile', authentificateToken , getProfile); 
 // edit user
-router.get('/user/:id',authentificateToken , authorizeRole(RoleEnum.ADMIN,RoleEnum.AUTHORITY), getUserById )
+router.get('/user/:id',authentificateToken , getUserById )
 // lists of user 
-router.get('/users', authentificateToken , authorizeRole(RoleEnum.ADMIN,RoleEnum.AUTHORITY) , getAllUser);
+router.get('/users', authentificateToken , getAllUser);
 // update on user
 router.patch('/user/:id',authentificateToken ,updateUser);
 

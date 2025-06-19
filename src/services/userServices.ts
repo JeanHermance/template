@@ -13,7 +13,7 @@ export class UserService{
 
 
     async register (userDto: UserDto){
-        const {firstName , lastName , cin , contact , email , username , password , confirmationPassword , adresse} = userDto;
+        const { email , username , password , confirmationPassword } = userDto;
 
         const userExisting = await this.userRepository.findOneBy({email});
 
@@ -28,13 +28,8 @@ export class UserService{
         const hashPassword = await bcrypt.hash(password, 10);
 
         const user = this.userRepository.create({
-            firstName,
-            lastName,
-            cin,
-            contact,
             email,
             username,
-            adresse,
             password: hashPassword,
         });
 
@@ -56,8 +51,8 @@ export class UserService{
             throw new Error('password not match');
         }
 
-        const accessTokenValue = generateAccessToken({id: user.id , username: user.username , email: user.email , role: user.role});
-        const refreshTokenValue = generateRefreshToken({id: user.id , username: user.username , email: user.email , role: user.role});
+        const accessTokenValue = generateAccessToken({id: user.id , username: user.username , email: user.email });
+        const refreshTokenValue = generateRefreshToken({id: user.id , username: user.username , email: user.email });
 
         const expires = new Date();
         expires.setDate(expires.getDate() + 7);
@@ -85,8 +80,8 @@ export class UserService{
             await this.refreshTokenRepository.delete({token: tokenRecord.token});
 
             if (decode) {
-                const newAccessToken = generateAccessToken({id: decode.id , username: decode.username , email: decode.email , role: decode.role});
-                const newRefreshToken = generateRefreshToken({id: decode.id , username: decode.username , email: decode.email , role: decode.role});
+                const newAccessToken = generateAccessToken({id: decode.id , username: decode.username , email: decode.email });
+                const newRefreshToken = generateRefreshToken({id: decode.id , username: decode.username , email: decode.email});
 
                 const refreshToken = this.refreshTokenRepository.create({
                     token: newRefreshToken,

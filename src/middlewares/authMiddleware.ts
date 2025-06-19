@@ -1,10 +1,8 @@
 import jwt from "jsonwebtoken";
 import { NextFunction, Response , Request} from "express";
-import { RoleEnum } from "../enums/roleEnum";
 
 export interface AuthentificateRequest extends Request{
     userId?: number;
-    role?: RoleEnum;
 }
 
 export const authentificateToken = (
@@ -22,9 +20,8 @@ export const authentificateToken = (
             if (!secret) {
                 throw new Error('Secret is not defined')
             }
-            const decoded = jwt.verify(token, secret) as {id: number, role: RoleEnum};
+            const decoded = jwt.verify(token, secret) as {id: number};
             req.userId = decoded.id;
-            req.role = decoded.role;
 
             next();
         } catch (error) {
