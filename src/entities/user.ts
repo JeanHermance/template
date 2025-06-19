@@ -1,5 +1,7 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { RefreshToken } from "./refreshToken";
+import { Enfant } from "./enfant";
+import { Notification } from "./notification";
 
 @Entity()
 export class User {
@@ -28,5 +30,12 @@ export class User {
 
     @OneToMany(() => RefreshToken, (refreshtoken) => refreshtoken.user)
     refreshtokens: RefreshToken[];
+
+    @OneToMany(() => Enfant , (enfant) => enfant.user)
+    enfants: Enfant;
+
+    @OneToMany(() => Notification , (notification) => notification.user)
+    notifications: Notification[];
+
 }
 
