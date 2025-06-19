@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { OneToMany } from "typeorm";
 import { Theme } from "./Theme"; // Assurez-vous que le chemin est correct
+import { Enfant } from "./enfant";
 
 @Entity()
 export class Niveau {
@@ -15,4 +16,8 @@ export class Niveau {
 
     @Column({ nullable: true })
     description: string;
+
+    @OneToMany(() => Enfant, (enfant) => enfant.niveau)
+    enfants: Enfant[];
+
 }

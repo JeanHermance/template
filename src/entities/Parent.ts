@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { RefreshToken } from "./refreshToken";
 import { Theme } from "./Theme";
+import { Enfant } from "./enfant";
 
 @Entity()
 export class Parent {
@@ -32,5 +33,11 @@ export class Parent {
 
     @OneToMany(() => RefreshToken, (refreshtoken) => refreshtoken.parent)
     refreshtokens: RefreshToken[];
+
+    @OneToMany(() => Enfant, (enfant) => enfant.parent)
+    enfants: Enfant[];
+
+    @OneToMany(() => Enfant, (enfant) => enfant.parent)
+    notifications: Enfant[];
 }
 

@@ -3,13 +3,13 @@ import { EnfantDto } from "../dto/enfantDto";
 import { Enfant } from "../entities/enfant";
 import { Niveau } from "../entities/Niveau";
 import { Notification } from "../entities/notification";
-import { User } from "../entities/user";
+import { Parent } from "../entities/Parent";
 import { sendPinParent } from "../utils/mailer";
 
 
 export class EnfantService {
     private enfantRepository = AppDataSource.getRepository(Enfant);
-    private userRepository = AppDataSource.getRepository(User);
+    private userRepository = AppDataSource.getRepository(Parent);
     private niveauRepository = AppDataSource.getRepository(Niveau);
     private notificationRepository = AppDataSource.getRepository(Notification);
 
@@ -39,7 +39,7 @@ export class EnfantService {
             firstName: enfantDto.firstName,
             age: enfantDto.age,
             pin: pin,
-            user,
+            parent: user,
             niveau
         });
 
@@ -48,7 +48,7 @@ export class EnfantService {
         const notification = this.notificationRepository.create({
             title: 'Compte enfant créé',
             message: `Le compte enfant ${savedEnfant.firstName} a été créé avec succès.le code PIN est :<b>${pin}</b>`,
-            user
+            parent: user
         })
 
         await this.notificationRepository.save(notification);
@@ -72,12 +72,12 @@ export class EnfantService {
     }
 
     async findAllEnfantParent(id: number){
-        const enfants = await this.enfantRepository.find({where: {user: {id}}, relations: ['niveau']});
+        const enfants = await this.enfantRepository.find({where: {parent: {id}}, relations: ['niveau']});
         return enfants;
     }
 
     async countEnfant(id: number){
-        const enfant = await this.enfantRepository.count({where: {user: {id}}});
+        const enfant = await this.enfantRepository.count({where: {parent: {id}}});
         return enfant;
     }
 }
