@@ -4,9 +4,11 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { Parent } from "./Parent";
 import { Niveau } from "./Niveau";
+import { Element } from "./element";
 
 @Entity()
 export class Theme {
@@ -32,4 +34,8 @@ export class Theme {
 
   @Column({ nullable: true })
   image_url: string;
+
+  @OneToMany(() => Element, (element) => element.theme)
+  elements: Element[];
+
 }

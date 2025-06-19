@@ -4,8 +4,10 @@ import dotenv from 'dotenv';
 import { AppDataSource } from "./config/database";
 import userRoutes from './routes/userRoutes'
 import enfantRoutes from './routes/enfantRoute';
+import elementRoutes from './routes/elementRoute';
 import { createServer } from "http";
 import { Server } from "socket.io"
+import path from "path";
 
 dotenv.config();
 
@@ -13,6 +15,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname,'uploads')));
 
 const httpServer = createServer(app);
 const io = new Server(httpServer , {
@@ -34,6 +37,7 @@ AppDataSource.initialize()
 
 app.use("/api", userRoutes);    
 app.use("/api", enfantRoutes);
+app.use("/api", elementRoutes);
 
 
 
