@@ -5,6 +5,7 @@ import { AppDataSource } from "./config/database";
 import userRoutes from './routes/userRoutes'
 import enfantRoutes from './routes/enfantRoute';
 import elementRoutes from './routes/elementRoute';
+import devinetteRoutes from './routes/devinateRouter';
 import { createServer } from "http";
 import { Server } from "socket.io"
 import path from "path";
@@ -38,6 +39,8 @@ AppDataSource.initialize()
 app.use("/api", userRoutes);    
 app.use("/api", enfantRoutes);
 app.use("/api", elementRoutes);
+app.use("/api", devinetteRoutes);
+
 
 
 

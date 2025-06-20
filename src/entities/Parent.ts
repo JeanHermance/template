@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, PrimaryGene
 import { RefreshToken } from "./refreshToken";
 import { Theme } from "./Theme";
 import { Enfant } from "./enfant";
+import { Devinette } from "./devinette";
 
 @Entity()
 export class Parent {
@@ -39,5 +40,8 @@ export class Parent {
 
     @OneToMany(() => Enfant, (enfant) => enfant.parent)
     notifications: Enfant[];
+
+    @OneToMany(() => Devinette, (devinette) => devinette.parent)
+    devinettes: Enfant[];
 }
 

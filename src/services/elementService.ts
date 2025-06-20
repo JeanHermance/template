@@ -24,7 +24,6 @@ export class ElementService {
 
         await this.elementRepository.save(element);
         return element;
-        
 
     }
 
