@@ -6,6 +6,7 @@ import userRoutes from './routes/userRoutes'
 import enfantRoutes from './routes/enfantRoute';
 import elementRoutes from './routes/elementRoute';
 import devinetteRoutes from './routes/devinateRouter';
+import maquetteRoutes from './routes/maquetteRouter';
 import { createServer } from "http";
 import { Server } from "socket.io"
 import path from "path";
@@ -40,6 +41,7 @@ app.use("/api", userRoutes);
 app.use("/api", enfantRoutes);
 app.use("/api", elementRoutes);
 app.use("/api", devinetteRoutes);
+app.use("/api", maquetteRoutes)
 
 
 

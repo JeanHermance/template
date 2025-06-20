@@ -9,6 +9,7 @@ import {
 import { Parent } from "./Parent";
 import { Niveau } from "./Niveau";
 import { Element } from "./element";
+import { Maquette } from "./maquette";
 
 @Entity()
 export class Theme {
@@ -38,4 +39,6 @@ export class Theme {
   @OneToMany(() => Element, (element) => element.theme)
   elements: Element[];
 
+  @OneToMany(() => Maquette , (maquette) => maquette.theme)
+  maquettes: Maquette;
 }

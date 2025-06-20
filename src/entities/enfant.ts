@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Niveau } from "./Niveau";
 import { Parent } from "./Parent";
+import { Maquette } from "./maquette";
 
 @Entity()
 export class Enfant{
@@ -23,4 +24,7 @@ export class Enfant{
     @ManyToOne(() => Niveau , niveau => niveau.enfants)
     @JoinColumn({name: 'niveau_id'})
     niveau:Niveau;
+
+    @OneToMany(() =>Maquette , (maquette) => maquette.enfant)
+    maquettes:Maquette[];
 }
