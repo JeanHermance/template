@@ -10,6 +10,7 @@ import maquetteRoutes from './routes/maquetteRouter';
 import { createServer } from "http";
 import { Server } from "socket.io"
 import path from "path";
+import session from "express-session";
 
 dotenv.config();
 
@@ -28,6 +29,14 @@ const io = new Server(httpServer , {
 
 
 app.set("io",io);
+app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 3600000
+    }
+}))
 
 AppDataSource.initialize()
     .then(() => {

@@ -29,6 +29,33 @@ export const createCompteEnfant = async (req: AuthentificateRequest, res: Respon
     }
 }
 
+export const loginEnfant = async (req: Request, res: Response) => {
+    const {firstName, pin} = req.body;
+    const io = req.app.get("io");
+    const enfantService = new EnfantService(io);
+    try {
+        const enfant = await enfantService.login(firstName, pin);
+        (req.session as any) = enfant;
+
+        res.status(200).json(enfant);
+    } catch (error: any) {
+        res.status(400).json({message: error.message});
+    }
+} 
+
+export const getProfilEnfant = async (req: Request, res: Response) => {
+    const enfant = (req.session as any).enfant;
+
+    if (!enfant) {
+        res.status(401).json({ message: "Enfant non authentifié" });
+    }
+
+    res.status(200).json({
+        message: "Profil de l'enfant connecté",
+        enfant,
+    });
+};
+
 export const findAllEnfantParent = async (req: AuthentificateRequest, res: Response) => {
     try {
         if (!req.userId) {
@@ -59,3 +86,13 @@ export const countEnfant = async (req: AuthentificateRequest, res: Response) => 
         res.status(400).json({message: error.message});
     }
 }
+
+export const logoutEnfant = (req: Request, res: Response) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ message: "Erreur lors de la déconnexion" });
+        }
+
+        res.json({ message: "Déconnexion réussie" });
+    });
+};

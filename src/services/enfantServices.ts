@@ -67,6 +67,19 @@ export class EnfantService {
 
     }
 
+    async login(firstName: string , pin: string){
+        const enfant = await this.enfantRepository.findOne({where: {firstName, pin}, relations: ['parent', 'niveau']});
+        if (!enfant) {
+            throw new Error('Enfant not found');
+        }
+        return {
+            id: enfant.id,
+            firstName: enfant.firstName,
+            niveau: enfant.niveau.id_niveau,
+            age: enfant.age
+        }
+    }
+
     private generatePin(): string{
         return Math.floor(1000 + Math.random() * 9000).toString();
     }
@@ -80,5 +93,8 @@ export class EnfantService {
         const enfant = await this.enfantRepository.count({where: {parent: {id}}});
         return enfant;
     }
+
+
+    
 }
 

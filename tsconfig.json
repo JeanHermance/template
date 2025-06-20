@@ -10,7 +10,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
-    "skipLibCheck": true 
+    "skipLibCheck": true ,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": [
     "src/**/*.ts" 
